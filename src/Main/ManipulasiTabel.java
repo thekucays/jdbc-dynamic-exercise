@@ -91,6 +91,10 @@ public class ManipulasiTabel {
 			catch(SQLException se){
 				System.out.println("Ada kesalahan. Periksa nama tabel dan database yang Anda input");
 			}
+			finally{
+				try{ con.close(); }
+				catch(SQLException se) { se.printStackTrace(); }
+			}
 		}
 		
 		public void tampilListTabel(){
@@ -111,6 +115,10 @@ public class ManipulasiTabel {
 			}
 			catch(SQLException se){
 				System.out.println("Ada kesalahan. Periksa nama database yang Anda input");
+			}
+			finally{
+				try{ con.close(); }
+				catch(SQLException se) { se.printStackTrace(); }
 			}
 		}
 		// END OF MANIPULASI TABEL ///////////////////////////////////////////////////////////////////////////
