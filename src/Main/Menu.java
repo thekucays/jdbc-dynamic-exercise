@@ -22,7 +22,15 @@ public class Menu {
 		//ManipulasiDatabase md = new ManipulasiDatabase();
 		//md.buatDatabase("AntarDB");
 		
-		ManipulasiTabel mt = new ManipulasiTabel();
-		mt.buatTabel();
+		//ManipulasiTabel mt = new ManipulasiTabel();
+		//mt.buatTabel();
+		
+		ManipulasiKueri mk = new ManipulasiKueri();
+		try {
+			mk.tampilRecord();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
