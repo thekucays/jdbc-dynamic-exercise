@@ -68,6 +68,7 @@ public class ManipulasiKueri {
 		stmt.executeUpdate(sql);
 		
 		System.out.println("Data baru berhasil dimasukkan ke dalam tabel " + namaTabel);
+		con.close();
 		
 		// debug lines
 		//System.out.println("Generated sql query :  " + sql);
@@ -118,6 +119,7 @@ public class ManipulasiKueri {
 		stmt.executeUpdate(sql);
 		
 		System.out.println("Record " + hapus +" pada tabel " + namaTabel + " berhasil dihapus");
+		con.close();
 	}
 	
 	public void tampilRecord(String Db, String Tbl) throws SQLException{
@@ -161,5 +163,6 @@ public class ManipulasiKueri {
 			System.out.println("------------------------------------------");
 		}
 		hitung = 0;
+		con.close();
 	}
 }
