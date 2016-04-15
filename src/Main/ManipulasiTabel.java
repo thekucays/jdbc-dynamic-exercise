@@ -14,21 +14,15 @@ public class ManipulasiTabel {
 	Scanner scan = new Scanner(System.in);
 	
 	// MANIPULASI TABEL //////////////////////////////////////////////////////////////////////////////////
-		public void buatTabel(){
-			String namaDB = "";
-			String namaTabel = "";
+		public void buatTabel(String Db, String Tbl){
+			String namaDB = Db;
+			String namaTabel = Tbl;
 			int inputInt = 0;
 			System.out.println("-------MENU PEMBUATAN TABEL-------");
-			
-			// pilih database nya dulu untuk di konekin
-			System.out.println("Masukkan nama database");
-			namaDB = scan.nextLine();
+
+			// konek ke database yang dimasukin
 			con = kon.konekNamaDB(namaDB);
-			
-			// masukin nama tabel nya
-			System.out.println("Masukkan nama tabel : ");
-			namaTabel = scan.nextLine();
-			
+
 			// masukin jumlah kolom nya
 			System.out.println("Masukkan jumlah kolom : ");
 			int jumlahKolom = scan.nextInt();
@@ -70,17 +64,12 @@ public class ManipulasiTabel {
 			}
 		}
 		
-		public void hapusTabel(){
-			String namaDB = "";
-			String namaTabel = "";
+		public void hapusTabel(String Db, String Tbl){
+			String namaDB = Db;
+			String namaTabel = Tbl;
+
 			System.out.println("-------MENU HAPUS TABEL-------");
-			
-			System.out.println("Masukkan nama Database : ");
-			namaDB = scan.nextLine();
 			con = kon.konekNamaDB(namaDB);
-			
-			System.out.println("Masukkan nama Tabel : ");
-			namaTabel = scan.nextLine();
 			
 			String sql = "DROP TABLE " + namaTabel;
 			try{
@@ -97,11 +86,8 @@ public class ManipulasiTabel {
 			}
 		}
 		
-		public void tampilListTabel(){
-			String namaDB = "";
-			
-			System.out.println("Masukkan nama Database : ");
-			namaDB = scan.nextLine();
+		public void tampilListTabel(String Db){
+			String namaDB = Db;
 			con = kon.konekNamaDB(namaDB);
 			
 			try{

@@ -69,6 +69,7 @@ public class Menu {
 			pilihan = scan.nextInt();
 			scan.nextLine();
 			String namaDB = "";
+			String namaTbl = "";
 			
 			switch(pilihan){
 				case 1:
@@ -85,16 +86,38 @@ public class Menu {
 					md.hapusDatabase(namaDB);
 					break;
 				case 4:
-					mt.buatTabel();
+					System.out.println("Masukkan nama Database : ");
+					namaDB = scan.nextLine();
+					System.out.println("Masukkan nama Tabel : ");
+					namaTbl = scan.nextLine();
+					
+					mt.buatTabel(namaDB, namaTbl);
 					break;
 				case 5:
-					mt.tampilListTabel();
+					System.out.println("Masukkan nama Database : ");
+					namaDB = scan.nextLine();
+					
+					mt.tampilListTabel(namaDB);
 					break;
 				case 6:
-					mt.tampilListTabel();
+					System.out.println("Masukkan nama Database : ");
+					namaDB = scan.nextLine();
+					System.out.println("Masukkan nama Tabel : ");
+					namaTbl = scan.nextLine();
+					
+					mt.hapusTabel(namaDB, namaTbl);
 					break;
 				case 7:
-					mk.isiRecord();
+					System.out.println("Masukkan nama Database : ");
+					namaDB = scan.nextLine();
+					
+					// tampilin tabel yang ada di database dulu
+					mt.tampilListTabel(namaDB);
+					
+					System.out.println("Masukkan nama Tabel : ");
+					namaTbl = scan.nextLine();
+					
+					mk.isiRecord(namaDB, namaTbl);
 					break;
 				case 8:
 					mk.editRecord();
@@ -103,7 +126,16 @@ public class Menu {
 					mk.hapusRecord();
 					break;
 				case 10:
-					mk.tampilRecord();
+					System.out.println("Masukkan nama Database : ");
+					namaDB = scan.nextLine();
+					
+					// tampilin tabel yang ada di database dulu
+					mt.tampilListTabel(namaDB);
+					
+					System.out.println("Masukkan nama Tabel : ");
+					namaTbl = scan.nextLine();
+					
+					mk.tampilRecord(namaDB, namaTbl);
 					break;
 				case 0:
 					System.exit(0);

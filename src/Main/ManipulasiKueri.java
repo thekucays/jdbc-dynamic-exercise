@@ -15,22 +15,16 @@ public class ManipulasiKueri {
 	Connection con = null;
 	Scanner scan = new Scanner(System.in);
 	
-	public void isiRecord()throws SQLException{
-		String namaDB = "";
-		String namaTabel = "";
+	public void isiRecord(String Db, String Tbl)throws SQLException{
+		String namaDB = Db;
+		String namaTabel = Tbl;
 		int jumlahkolom = 0;
 		ResultSet rs;
 		ResultSetMetaData rsMeta;
 		DatabaseMetaData dbMeta;
 		
-		// masukin nama db
-		System.out.println("Masukkan nama Database : ");
-		namaDB = scan.nextLine();
+		// konek ke database yang dimasukin
 		con = kon.konekNamaDB(namaDB);
-		
-		// masukin nama tabel yang mau di insert
-		System.out.println("Masukkan nama tabel ");
-		namaTabel = scan.nextLine();
 		
 		// kueri jumlah kolom yang ada di tabel nya
 		dbMeta = con.getMetaData();
@@ -87,26 +81,16 @@ public class ManipulasiKueri {
 		
 	}
 	
-	public void tampilRecord() throws SQLException{
-		String namaDB = "";
-		String namaTabel = "";
+	public void tampilRecord(String Db, String Tbl) throws SQLException{
+		String namaDB = Db;
+		String namaTabel = Tbl;
 		int jumlahkolom = 0;
 		ResultSet rs;
 		ResultSetMetaData rsMeta;
 		DatabaseMetaData dbMeta;
 		
-		// tampilin tabel yang ada di database dulu
-		ManipulasiTabel mt = new ManipulasiTabel();
-		mt.tampilListTabel();
-		
-		// masukin nama db
-		System.out.println("Masukkan nama Database : ");
-		namaDB = scan.nextLine();
+		// konek ke database yang dimasukin
 		con = kon.konekNamaDB(namaDB);
-		
-		// masukin nama tabel yang mau di kueri
-		System.out.println("Masukkan nama tabel ");
-		namaTabel = scan.nextLine();
 		
 		// kueri jumlah kolom yang ada di tabel nya
 		dbMeta = con.getMetaData();
