@@ -120,10 +120,28 @@ public class Menu {
 					mk.isiRecord(namaDB, namaTbl);
 					break;
 				case 8:
-					mk.editRecord();
+					System.out.println("Masukkan nama Database : ");
+					namaDB = scan.nextLine();
+					
+					// tampilin tabel yang ada di database dulu
+					mt.tampilListTabel(namaDB);
+					
+					System.out.println("Masukkan nama Tabel : ");
+					namaTbl = scan.nextLine();
+					
+					mk.editRecord(namaDB, namaTbl);
 					break;
 				case 9:
-					mk.hapusRecord();
+					System.out.println("Masukkan nama Database : ");
+					namaDB = scan.nextLine();
+					
+					// tampilin tabel yang ada di database dulu
+					mt.tampilListTabel(namaDB);
+					
+					System.out.println("Masukkan nama Tabel : ");
+					namaTbl = scan.nextLine();
+					
+					mk.hapusRecord(namaDB, namaTbl);
 					break;
 				case 10:
 					System.out.println("Masukkan nama Database : ");
