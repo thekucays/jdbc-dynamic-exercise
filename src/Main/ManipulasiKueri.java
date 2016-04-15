@@ -74,8 +74,69 @@ public class ManipulasiKueri {
 		//System.out.println("Generated sql query :  " + sql);
 	}
 	
-	public void editRecord(String Db, String Tbl){
+	public void editRecord(String Db, String Tbl)throws SQLException{
+		String namaDB = Db;
+		String namaTabel = Tbl;
+		int jumlahkolom = 0;
+		ResultSet rs;
+		ResultSetMetaData rsMeta;
+		DatabaseMetaData dbMeta;
 		
+		// konek ke database yang dimasukin
+		con = kon.konekNamaDB(namaDB);
+		
+		// kueri jumlah kolom yang ada di tabel nya
+		dbMeta = con.getMetaData();
+		rs = dbMeta.getColumns(null, null, namaTabel, null);
+		while(rs.next()){
+			jumlahkolom++;
+		}
+			
+		// simpen nama kolom nya ke array
+		String[] namakoloms = new String[jumlahkolom];
+		int hitung = 0;
+		rs.beforeFirst(); // balikin kursor nya ke awal
+		while(rs.next()){
+			namakoloms[hitung] = rs.getString("COLUMN_NAME");
+			hitung++;
+		}
+		hitung = 0;
+		
+		// tampilin record(isi) tabel nya dulu
+		tampilRecord(namaDB, Tbl);
+		
+		// setelah data tampil, pilih kolom pertama pada tabel untuk dijadiin WHERE nya
+		System.out.println("Masukkan " + namakoloms[0] + " yang ingin dihapus : ");
+		String edit = scan.nextLine();
+		
+		// nama dan jumlah kolom udah dapet, lalu masukin data yang mau di insert
+		String[] dataEdit = new String[jumlahkolom];
+		for(int i=0; i<jumlahkolom; i++){
+			System.out.println("Masukkan data " + namakoloms[i]);
+			dataEdit[i] = scan.nextLine();
+		}
+		
+		// generate script sql untuk Edit/UPDATE nya, lalu eksekusi
+		String sql = "update " + namaTabel + " set ";
+		for(int i=0; i<dataEdit.length; i++){
+			sql += namakoloms[i] + " = '" + dataEdit[i] + "'";
+			
+			// kalo belum data terakhir, tambahin tanda koma, kalo udah terakhir gausah
+			int jumlahdata = dataEdit.length;
+			if(i != jumlahdata-1){
+				sql += ", ";
+			}
+		}
+		sql += " where " + namakoloms[0] + " = '" + edit + "'";
+		
+		stmt = con.createStatement();
+		stmt.executeUpdate(sql);
+		
+		System.out.println("Record " + edit +" pada tabel " + namaTabel + " berhasil di edit/update");
+		//con.close();
+		
+		// debug lines 
+		//System.out.println("Generated sql query :  " + sql);
 	}
 	
 	public void hapusRecord(String Db, String Tbl)throws SQLException{
@@ -129,12 +190,13 @@ public class ManipulasiKueri {
 		ResultSet rs;
 		ResultSetMetaData rsMeta;
 		DatabaseMetaData dbMeta;
+		Connection connect;
 		
-		// konek ke database yang dimasukin
-		con = kon.konekNamaDB(namaDB);
+		// konek ke database yang dimasukin (Connection nya di bedain sendiri supaya method lain yang manggil ini ga ke close koneksinya)
+		connect = kon.konekNamaDB(namaDB);
 		
 		// kueri jumlah kolom yang ada di tabel nya
-		dbMeta = con.getMetaData();
+		dbMeta = connect.getMetaData();
 		rs = dbMeta.getColumns(null, null, namaTabel, null);
 		while(rs.next()){
 			jumlahkolom++;
@@ -152,7 +214,7 @@ public class ManipulasiKueri {
 		
 		// jumlah kolom udah dapet, nama kolom udah dapet, terakhir kueri data nya
 		String sql = "SELECT * FROM " + namaTabel;
-		stmt = con.createStatement();
+		stmt = connect.createStatement();
 		rs = stmt.executeQuery(sql);
 		while(rs.next()){
 			// loop berdasarkan jumlah kolom nya
@@ -163,6 +225,6 @@ public class ManipulasiKueri {
 			System.out.println("------------------------------------------");
 		}
 		hitung = 0;
-		con.close();
+		connect.close();
 	}
 }
